@@ -43,15 +43,19 @@ class EmployeeController extends Controller
             'nombre',
             'apellido1',
             'apellido2',
-            'department_id'
+            'department_id',
+            'ciudad',
+            'zip'
         ]);
 
         $validation = Validator::make($credentials,[
             'nif'           => 'required|max:9|unique:employees,nif',
             'nombre'        => 'required|min:3|max:100',
-            'apellido1'     => 'required|min:3|max:100',
-            'apellido2'     => 'required|min:3|max:100',
-            'department_id' => 'required|numeric|exists:departments,id'
+            'apellido1'     => 'sometimes|required|min:3|max:100',
+            'apellido2'     => 'sometimes|required|min:3|max:100',
+            'department_id' => 'required|numeric|exists:departments,id',
+            'ciudad'        => 'sometimes|required|min:3|max:100',
+            'zip'           => 'sometimes|required|min:3|max:100',
         ]);
 
         if (!$validation->fails()) {
@@ -111,7 +115,9 @@ class EmployeeController extends Controller
             'nombre',
             'apellido1',
             'apellido2',
-            'department_id'
+            'department_id',
+            'ciudad',
+            'zip'
         ]);
 
         $validation = Validator::make($credentials,[
@@ -119,7 +125,9 @@ class EmployeeController extends Controller
             'nombre'        => 'sometimes|required|min:3|max:100',
             'apellido1'     => 'sometimes|required|min:3|max:100',
             'apellido2'     => 'sometimes|required|min:3|max:100',
-            'department_id' => 'sometimes|required|numeric|exists:departments,id'
+            'department_id' => 'sometimes|required|numeric|exists:departments,id',
+            'ciudad'        => 'sometimes|required|min:3|max:100',
+            'zip'           => 'sometimes|required|min:3|max:100',
         ]);
 
         if (!$validation->fails()) {
