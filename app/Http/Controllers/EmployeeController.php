@@ -103,10 +103,8 @@ class EmployeeController extends Controller
     public function update(Request $request, Employee $employee)
     {
         $status     = 'success';
-        $message    = ['message' => [__('Todos los elementos')]];
-        $data       = $employee;
-
-        $notify = true;
+        $message    = ['message' => [__('Actualizado')]];
+        $data       = true;
 
         $credentials = $request->only([
             'nif',
@@ -117,11 +115,11 @@ class EmployeeController extends Controller
         ]);
 
         $validation = Validator::make($credentials,[
-            'nif'           => 'required|max:9|unique:employees,nif,'.$employee->id,
-            'nombre'        => 'required|min:3|max:100',
-            'apellido1'     => 'required|min:3|max:100',
-            'apellido2'     => 'required|min:3|max:100',
-            'department_id' => 'required|numeric|exists:departments,id'
+            'nif'           => 'sometimes|required|max:9|unique:employees,nif,'.$employee->id,
+            'nombre'        => 'sometimes|required|min:3|max:100',
+            'apellido1'     => 'sometimes|required|min:3|max:100',
+            'apellido2'     => 'sometimes|required|min:3|max:100',
+            'department_id' => 'sometimes|required|numeric|exists:departments,id'
         ]);
 
         if (!$validation->fails()) {
@@ -136,7 +134,7 @@ class EmployeeController extends Controller
                 $okUpdate = $employee->fill($credentials)->save();
 
                     if ($okUpdate) {
-                        $message    = ['message' => [__('Elemento actualizado')]];
+                        $message    = ['message' => [__('Actualizado')]];
                         $status     = 'success';
                         $data       = $employee;
                     } else {
@@ -158,13 +156,6 @@ class EmployeeController extends Controller
         }
 
         return response([
-            'notify'        => $notify,
-            'data'          => $data,
-            'status'        => $status,
-            'message'       => $message
-        ],200);
-
-        return response([
             'data'          => $data,
             'status'        => $status,
             'message'       => $message
@@ -179,6 +170,16 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
+        $status     = 'success';
+        $message    = ['message' => [__('Elemento eliminado')]];
+        $data       = true;
+
         $employee->delete();
+
+        return response([
+            'data'          => $data,
+            'status'        => $status,
+            'message'       => $message
+        ],200);
     }
 }
