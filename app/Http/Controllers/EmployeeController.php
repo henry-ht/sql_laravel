@@ -17,7 +17,7 @@ class EmployeeController extends Controller
     {
         $status     = 'success';
         $message    = ['message' => [__('Todos los elementos')]];
-        $data       = Employee::get();
+        $data       = Employee::with(['department'])->get();
 
         return response([
             'data'          => $data,

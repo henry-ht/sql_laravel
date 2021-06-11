@@ -14,7 +14,15 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $status     = 'success';
+        $message    = ['message' => [__('Todos los elementos')]];
+        $data       = Department::get();
+
+        return response([
+            'data'          => $data,
+            'status'        => $status,
+            'message'       => $message
+        ],200);
     }
 
     /**

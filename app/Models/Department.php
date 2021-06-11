@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'nombre',
+        'presupuesto',
+        'gastos',
+    ];
+
+    public function employees()
+    {
+        return $this->hasOne(Employee::class);
+    }
 }
