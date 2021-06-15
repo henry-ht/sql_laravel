@@ -13,7 +13,9 @@ class Employee extends Model
         'nombre',
         'apellido1',
         'apellido2',
-        'department_id'
+        'department_id',
+        'zip',
+        'ciudad',
     ];
 
     public function department()
